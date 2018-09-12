@@ -4,8 +4,8 @@ services:
     graphqlapi:
         image: nestmicroservices/graphqlapi:${TAG:-latest}
         build:
-            context: services/graphqlapi
-            dockerfile: services/graphqlapi/Dockerfile
+            context: ./services/graphqlapi
+            dockerfile: Dockerfile
         ports:
             - '4200:3000'
         depends_on:
