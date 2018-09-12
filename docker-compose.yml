@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+    graphqlapi:
+        image: nestmicroservices/graphqlapi:${TAG:-latest}
+        build:
+            context: services/graphqlapi
+            dockerfile: services/graphqlapi/Dockerfile
+        ports:
+            - '4200:3000'
+        depends_on:
+            - redis
+            - rabbitmq
+
     rabbitmq:
         image: 'rabbitmq:3-management'
         hostname: 'rabbitmq'
