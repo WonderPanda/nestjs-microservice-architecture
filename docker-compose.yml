@@ -6,6 +6,8 @@ services:
         build:
             context: ./services/graphqlapi
             dockerfile: Dockerfile
+        environment:
+            - GRAPHQL_ENV=production
         ports:
             - '4200:3000'
         depends_on:

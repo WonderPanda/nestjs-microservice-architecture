@@ -33,6 +33,8 @@ RUN yarn tsc
 FROM base AS release
 # copy production node_modules
 COPY --from=testAndBuild /server/prod_node_modules ./node_modules
+# copy GQL schemas
+COPY --from=testAndBuild /server/src/schemas ./src/schemas
 # copy app sources
 COPY --from=testAndBuild /server/dist .
 
