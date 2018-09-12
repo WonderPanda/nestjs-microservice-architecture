@@ -1,0 +1,7 @@
+type Brand {
+  name: String
+}
+
+type Query {
+  getBrands: [Brand]
+}

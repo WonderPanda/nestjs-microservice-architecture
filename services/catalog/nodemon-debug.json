@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
-  "ext": "ts,gql",
-  "ignore": ["src/**/*.spec.ts", "src/SDL/graphql.d.ts"],
+  "ext": "ts",
+  "ignore": ["src/**/*.spec.ts"],
   "exec": "node --inspect-brk -r ts-node/register src/main.ts"
 }

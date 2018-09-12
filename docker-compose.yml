@@ -12,6 +12,17 @@ services:
             - redis
             - rabbitmq
 
+    catalog:
+        image: nestmicroservices/catalog:${TAG:-latest}
+        build:
+            context: ./services/catalog
+            dockerfile: Dockerfile
+        ports:
+            - '4201:3000'
+        depends_on:
+            - redis
+            - rabbitmq
+
     rabbitmq:
         image: 'rabbitmq:3-management'
         hostname: 'rabbitmq'
