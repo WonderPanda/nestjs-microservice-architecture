@@ -7,6 +7,8 @@ import { CatalogModule } from './catalog/catalog.module';
 
 // Only generate the TS interfaces when not running in production
 const env = process.env.GRAPHQL_ENV;
+// tslint:disable-next-line:no-console
+console.log(env);
 
 const gqlModule =
   env === 'production'

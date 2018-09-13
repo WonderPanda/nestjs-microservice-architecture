@@ -1,55 +1,55 @@
-version: '3'
+version: "3"
 
 services:
-    graphqlapi:
-        image: nestmicroservices/graphqlapi:${TAG:-latest}
-        build:
-            context: ./services/graphqlapi
-            dockerfile: Dockerfile
-        environment:
-            - GRAPHQL_ENV=production
-        ports:
-            - '4200:3000'
-        depends_on:
-            - redis
-            - rabbitmq
+  # graphqlapi:
+  #     image: nestmicroservices/graphqlapi:${TAG:-latest}
+  #     build:
+  #         context: ./services/graphqlapi
+  #         dockerfile: Dockerfile
+  #     environment:
+  #         - GRAPHQL_ENV=production
+  #     ports:
+  #         - '4200:3000'
+  #     depends_on:
+  #         - redis
+  #         - rabbitmq
 
-    catalog:
-        image: nestmicroservices/catalog:${TAG:-latest}
-        build:
-            context: ./services/catalog
-            dockerfile: Dockerfile
-        ports:
-            - '4201:3000'
-        depends_on:
-            - redis
-            - rabbitmq
+  catalog:
+    image: nestmicroservices/catalog:${TAG:-latest}
+    build:
+      context: ./services/catalog
+      dockerfile: Dockerfile
+    ports:
+      - "4201:3000"
+    depends_on:
+      - redis
+      - rabbitmq
 
-    rabbitmq:
-        image: 'rabbitmq:3-management'
-        hostname: 'rabbitmq'
-        environment:
-            RABBITMQ_ERLANG_COOKIE: 'SWQOKODSQALRPCLNMEQG'
-            RABBITMQ_DEFAULT_USER: 'rabbitmq'
-            RABBITMQ_DEFAULT_PASS: 'rabbitmq'
-            RABBITMQ_DEFAULT_VHOST: '/'
-        ports:
-            - '15672:15672'
-            - '5672:5672'
-            
-    redis:
-        image: 'bitnami/redis:latest'
-        environment:
-            # ALLOW_EMPTY_PASSWORD is recommended only for development.
-            - ALLOW_EMPTY_PASSWORD=yes
-            - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-        labels:
-            kompose.service.type: nodeport
-        ports:
-            - '6379:6379'
-        volumes:
-            - 'redis_data:/bitnami/redis'
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  redis:
+    image: "bitnami/redis:latest"
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis_data:/bitnami/redis"
 
 volumes:
-    redis_data:
-        driver: local
+  redis_data:
+    driver: local

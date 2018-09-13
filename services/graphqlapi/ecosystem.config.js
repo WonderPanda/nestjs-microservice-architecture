@@ -9,8 +9,8 @@ module.exports = {
       script: 'main.js',
       watch: true,
       env: {
-        NODE_ENV: 'production',
-      },
-    },
-  ],
+        NODE_ENV: 'development'
+      }
+    }
+  ]
 };
