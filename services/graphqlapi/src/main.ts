@@ -9,7 +9,6 @@ async function bootstrap() {
     options: { retryAttempts: 5, retryDelay: 1000 }
   });
 
-  // await app.startAllMicroservicesAsync();
-  await app.listen(3000);
+  await app.listen(4200);
 }
 bootstrap();
