@@ -10,7 +10,7 @@ services:
           - GRAPHQL_ENV=production
           - REDIS_HOST=redis
       ports:
-          - '4200:3000'
+          - '4200:4200'
       depends_on:
           - redis
           - rabbitmq
