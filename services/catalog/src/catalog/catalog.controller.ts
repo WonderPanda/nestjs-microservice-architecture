@@ -7,10 +7,16 @@ export class CatalogController {
   public async getCatalogItems(): Promise<{}[]> {
     return [
       {
-        id: '123',
+        id: '1',
         name: 'Epic TShirt',
         description: 'A truly epic t-shirt for those who are daring',
         price: 2900
+      },
+      {
+        id: '2',
+        name: 'Noob TShirt',
+        description: `Boring t-shirt for noobs who don't deserve better`,
+        price: 1100
       }
     ];
   }
