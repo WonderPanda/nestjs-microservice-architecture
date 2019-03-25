@@ -2,13 +2,12 @@
 # ---- Base Node ----
 FROM node:8-alpine AS base
 
-RUN yarn global add pm2
+RUN apk add --no-cache tini
 
 WORKDIR /server
 
 COPY package.json .
 COPY yarn.lock .
-COPY ecosystem.config.js .
 
 #
 # ---- Dependencies ----
@@ -21,25 +20,20 @@ RUN cp -R node_modules prod_node_modules
 RUN yarn
 
 #
-# ---- Test ----
-# run linters, setup and tests
-FROM dependencies AS testAndBuild
+# ---- Build ----
+FROM dependencies AS build
 COPY . .
-RUN yarn lint && yarn test
 RUN yarn tsc
 
 #
 # ---- Release ----
 FROM base AS release
 # copy production node_modules
-COPY --from=testAndBuild /server/prod_node_modules ./node_modules
+COPY --from=build /server/prod_node_modules ./node_modules
 # copy GQL schemas
-COPY --from=testAndBuild /server/src/schemas ./src/schemas
+COPY --from=build /server/src/schemas ./src/schemas
 # copy app sources
-COPY --from=testAndBuild /server/dist .
+COPY --from=build /server/dist .
 
-# expose port and define CMD
-EXPOSE 3000
-
-CMD ["pm2-docker", "start", "ecosystem.config.js"]
+CMD ["tini", "node", "main.js"]
 
