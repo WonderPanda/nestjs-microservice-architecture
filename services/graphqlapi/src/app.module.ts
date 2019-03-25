@@ -10,14 +10,9 @@ const env = process.env.GRAPHQL_ENV;
 
 const gqlModule =
   env === 'production'
-    ? GraphQLModule.forRoot({
-        typePaths: ['./**/*.gql']
-      })
+    ? GraphQLModule.forRoot()
     : GraphQLModule.forRoot({
-        typePaths: ['./**/*.gql'],
-        definitions: {
-          path: join(process.cwd(), 'src/schemas/graphql.d.ts')
-        }
+        autoSchemaFile: join(process.cwd(), 'src/schema.gql')
       });
 
 @Module({

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Client, ClientProxy, Transport } from '@nestjs/microservices';
-import { CatalogItem } from 'schemas/graphql';
+import { CatalogItem } from '../models/catalog-item';
 
 const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
@@ -18,6 +18,16 @@ export class CatalogItemService {
       { type: 'get-catalog-items' },
       { someImaginaryParams: 42 }
     );
-    return response.toPromise();
+
+    const catalogItems = await response.toPromise();
+    return catalogItems.map(x => {
+      return {
+        ...x,
+        brand: {
+          id: '1',
+          name: 'Nike'
+        }
+      };
+    });
   }
 }

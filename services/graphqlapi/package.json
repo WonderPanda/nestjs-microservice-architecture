@@ -31,7 +31,8 @@
     "graphql-tools": "^4.0.4",
     "redis": "^2.8.0",
     "reflect-metadata": "^0.1.12",
-    "rxjs": "^6.2.2"
+    "rxjs": "^6.2.2",
+    "type-graphql": "^0.17.0"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.0.2",
